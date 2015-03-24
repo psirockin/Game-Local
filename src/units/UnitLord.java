@@ -1,8 +1,16 @@
 package units;
-import weapons.Weapon;
+import items.Item;
+import items.ItemHeal;
 
+import java.util.Stack;
+
+import objects.Sprite;
+import weapons.Weapon;
+import weapons.WeaponSword;
 public class UnitLord extends Unit {
-    public UnitLord(String n, int h, int atk, int mg, int spd, Weapon w) {
-    	super(n, h, atk, mg, spd, w);
-    }
+	public UnitLord() {
+		super("Lord", null, 18, 18, 10, 47, 6, 1, 4);
+		Stack<Weapon> equippedWeps = new Stack<Weapon>();
+		initNonStats(null, new ItemHeal("Healer", 7), equippedWeps, new WeaponSword());
+	}
 }

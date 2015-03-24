@@ -2,8 +2,7 @@ package weapons;
 import org.newdawn.slick.Image;
 
 import objects.Sprite;
-import objects.SpriteProperties;
-public class Weapon implements SpriteProperties {
+public class Weapon {
 	// define types
 	public static final String WeaponType_Sword = "Sword";
 	private Sprite spr;
@@ -11,16 +10,11 @@ public class Weapon implements SpriteProperties {
 	private int range;
 	private int dealDamage;
 	private String type = "NULL_TYPE";
-	public Weapon() {
-		durability = 10;
-		range = 1;
-		dealDamage = 3;
-	}
-	public Weapon(int dur, int rng, int deal, String t) {
-	    durability = dur;
-	    range = rng;
-	    dealDamage = deal;
-	    type = t;
+	public Weapon(int dur, int r, int dd, String wt) {
+		durability = dur;
+		range = r;
+		dealDamage = dd;
+		type = wt;
 	}
 	public int getDurabilityMax() {
 		return durability;
@@ -49,11 +43,9 @@ public class Weapon implements SpriteProperties {
 				type == nWeap.getType() &&
 				range == nWeap.getRange();
 	}
-	@Override
 	public Image getSpriteImage() {
 		return spr.getImg();
 	}
-	@Override
 	public void setSpriteImage(String sType) {
 		spr = new Sprite(sType);
 	}

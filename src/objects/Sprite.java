@@ -28,4 +28,11 @@ public class Sprite {
 	public String getType() {
 		return spriteType;
 	}
+	/** retruns the image of the sprite */
+	public Image getSpriteImage() {
+		return null;
+	}
+	/** reassign the Sprite to a new one, specified by sType */
+	public void setSpriteImage(String sType) {
+	}
 }

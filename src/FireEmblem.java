@@ -35,7 +35,7 @@ public class FireEmblem extends BasicGame {
 		for(int r = 0; r < map.cellArr.length; r++) {
 			for(int c = 0; c < map.cellArr[0].length; c++) {
 				// TODO make the Cell.getImage method return the image for drawing
-				g.drawImage(map.cellArr[0][0].get, x, y);
+				//g.drawImage(map.cellArr[0][0].get, x, y);
 			}
 		}
 				

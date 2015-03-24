@@ -3,7 +3,7 @@ import org.newdawn.slick.Image;
 import units.Unit;
 /** A single "square" on the map.
  * This can be a Unit, Door, Space */
-public class Cell implements SpriteProperties {
+public abstract class Cell {
 	private Sprite cellImage;
 	private boolean active = false;
 	private boolean activatable = false;
@@ -21,12 +21,10 @@ public class Cell implements SpriteProperties {
 	public boolean isActive() {
 		return active;
 	}
-	@Override
 	public Image getSpriteImage() {
 		// TODO Auto-generated method stub
 		return cellImage.getImg();
 	}
-	@Override
 	public void setSpriteImage(String sType) {
 		cellImage = new Sprite(sType);
 	}
