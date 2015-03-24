@@ -49,6 +49,11 @@ public class Unit {
 		magic = mg;
 		speed = s;
 	}
+	/** calculate the attack using the magic/strength from this class */
+	public int calculateAttack() {
+		int a = (eWeapons[0].getType() == Weapon.WeaponType_Magic) ? magic : attack;
+		return a + eWeapons[0].getDealDamage();
+	}
 	/** takes place of some constructor parameters */
 	protected void initNonStats(Stack<Item> i, Item ci, Stack<Weapon> allw, Weapon w) {
 		items = i;

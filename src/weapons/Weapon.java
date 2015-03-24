@@ -1,20 +1,20 @@
 package weapons;
+import items.Item;
 import org.newdawn.slick.Image;
-
 import objects.Sprite;
-public class Weapon {
+public class Weapon extends Item {
 	// define types
 	public static final String WeaponType_Sword = "Sword";
-	private Sprite spr;
+	public static final String WeaponType_Magic = "Magic";
 	private int durability;
 	private int range;
 	private int dealDamage;
-	private String type = "NULL_TYPE";
+	private int attack;
 	public Weapon(int dur, int r, int dd, String wt) {
+		super(wt,dur);
 		durability = dur;
 		range = r;
 		dealDamage = dd;
-		type = wt;
 	}
 	public int getDurabilityMax() {
 		return durability;
@@ -28,8 +28,9 @@ public class Weapon {
 		return durability > 0;
 	}
 	public String getType() {
-		return type;
+		return getType();
 	}
+	/** returns dealDamage, not the calculated kind */
 	public int getDealDamage() {
 		return dealDamage;
 	}
@@ -40,13 +41,7 @@ public class Weapon {
 	public boolean equals(Object obj) {
 		Weapon nWeap = (Weapon)obj;
 		return durability == nWeap.getDurabilityCur() &&
-				type == nWeap.getType() &&
+				getType() == nWeap.getType() &&
 				range == nWeap.getRange();
-	}
-	public Image getSpriteImage() {
-		return spr.getImg();
-	}
-	public void setSpriteImage(String sType) {
-		spr = new Sprite(sType);
 	}
 }
