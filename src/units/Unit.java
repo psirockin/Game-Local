@@ -24,12 +24,10 @@ public class Unit {
 	private int resist;
 	/** max amount of spaces a unit can move */
 	private int speed;
-	/** weapons that are usable at any time while equipped. index 0 is the last used one  */
-	private Weapon [] eWeapons = new Weapon [5];
+	/** weapons that are usable at any time while equipped. index 0 is the used one  */
+	private Item [] items = new Item [6];
 	/** all items on unit */
-	private Stack<Item> items = new Stack<Item>();
 	/** item being held */
-	private Item curItem;
 	/** you can only have 5 weapons equipped, but others will be unusable for the time */
 	private Stack<Weapon> allWeapons = new Stack<Weapon>();
 	/** Default case if none is specified */
@@ -37,31 +35,19 @@ public class Unit {
 		hp = 10;
 		defense = 4;
 		speed = 3;
-		eWeapons[0] = new WeaponLance();
-		for(int i = 1; i < eWeapons.length; i++) {
-			
-		}
 	}
-	public Unit(String n, Sprite sprite, int h, int hpm, int atk, int d, int mg, int r, int s) {
+	public Unit(String n, Sprite sprite, int h, int hpm, int atk, int d, int mg, int r, int s, Item [] its) {
 		hp = h;
 		hpMax = hpm;
 		attack = atk;
 		magic = mg;
 		speed = s;
+		items = its;
 	}
 	/** calculate the attack using the magic/strength from this class */
 	public int calculateAttack() {
-		int a = (eWeapons[0].getType() == Weapon.WeaponType_Magic) ? magic : attack;
-		return a + eWeapons[0].getDealDamage();
-	}
-	/** takes place of some constructor parameters */
-	protected void initNonStats(Stack<Item> i, Item ci, Stack<Weapon> allw, Weapon w) {
-		items = i;
-		curItem = ci;;
-		allWeapons = allw;
-		eWeapons[0] = w;
-		for(int ind = 0; ind < eWeapons.length; ind++)
-			eWeapons[ind] = null;
+		int a = (((Weapon)items[0]).getType() == Weapon.WeaponType_Magic) ? magic : attack;
+		return a + ((Weapon)items[0]).getDealDamage();
 	}
 	/** Swap weapons in stack, or add it if not there. Return if it added one. */
 	public boolean changeWeapon(Weapon toWeap) {
@@ -74,25 +60,30 @@ public class Unit {
 				break;
 			}
 		}
-		eWeapons[0] = allWeapons.get(index);
+		items[0] = allWeapons.get(index);
 		return has;
 	}
-	/** Returns if the item was added */
-	public boolean changeItem(Item i) {
-		if(items.indexOf(i) != 0) {
-			curItem = i;
-			return false;
-		} else {
-			items.add(i);
-			return true;
-		}
+	/** swaps index A with B */
+	private void swapItems(int a, int b) {
+		Item t =  items[a];
+		items[a] = items[b];
+		items[b] = t;
 	}
 	public int getAttack() {
 		return attack;
 	}
 	/** performs an ACTION. does NOT get the value */
-	public boolean attack(){
-	    return true;
+	public int attack(){
+		// make sure items[0] is a Weapon
+		if(!items[0].isWeapon()) {
+			for(int i = 1; i < items.length; i++) {
+				if(items[i].isWeapon()) {
+					swapItems(0, i);
+					break;
+				}
+			}
+		}
+	    return calculateAttack();
 	}
 	public void setHP(int h) {
 		hp = h;
