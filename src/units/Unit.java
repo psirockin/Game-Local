@@ -81,7 +81,7 @@ public class Unit {
 	}
 	/** calculates hit rate */
 	public int hitRate() {
-		return (skill*3 + luck)/2;
+		return ((Weapon)items[0]).getHitRate() + (skill*3 + luck)/2;
 	}
 	/** calculates avoid rate */
 	public int avoidRate() {
@@ -89,7 +89,7 @@ public class Unit {
 	}
 	/** calculates critical hit rate */
 	public int critRate() {
-		return skill/2;
+		return ((Weapon)items[0]).getCritical() + (skill/2);
 	}
 	/** Swap weapons in stack, or add it if not there. Return if it added one. */
 	public boolean changeWeapon(Weapon toWeap) {
