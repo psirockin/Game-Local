@@ -9,12 +9,22 @@ public class Weapon extends Item {
 	private int durability;
 	private int range;
 	private int dealDamage;
+	private int hit;
+	private int critical;
 	private int attack;
-	public Weapon(int dur, int r, int dd, String wt) {
+	public Weapon(int dur, int r, int h, int c, int dd, String wt) {
 		super(wt,dur);
 		durability = dur;
 		range = r;
 		dealDamage = dd;
+		hit = h;
+		critical = c;
+	}
+	public int getHitRate(){
+		return hit;
+	}
+	public int getCritical(){
+		return critical;
 	}
 	public int getDurabilityMax() {
 		return durability;
