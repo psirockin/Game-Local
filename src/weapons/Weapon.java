@@ -6,25 +6,18 @@ public class Weapon extends Item {
 	// define types
 	public static final String WeaponType_Sword = "Sword";
 	public static final String WeaponType_Magic = "Magic";
+	public static final String WeaponType_Axe = "Axe";
+	public static final String WeaponType_Bow = "Bow";
+	public static final String WeaponType_Lance = "Lance";
 	private int durability;
 	private int range;
 	private int dealDamage;
-	private int hit;
-	private int critical;
 	private int attack;
-	public Weapon(int dur, int r, int h, int c, int dd, String wt) {
-		super(wt,dur);
+	public Weapon(String name, int dur, int r, int dd, String wt) {
+		super(name,wt,dur);
 		durability = dur;
 		range = r;
 		dealDamage = dd;
-		hit = h;
-		critical = c;
-	}
-	public int getHitRate(){
-		return hit;
-	}
-	public int getCritical(){
-		return critical;
 	}
 	public int getDurabilityMax() {
 		return durability;
@@ -32,7 +25,7 @@ public class Weapon extends Item {
 	public int getDurabilityCur() {
 		return durability;
 	}
-	/** returns if still usable */
+	/** returns if still usable */ 
 	public boolean setDurability(int d) {
 		durability = d;
 		return durability > 0;
