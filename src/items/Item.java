@@ -18,11 +18,11 @@ public class Item {
 	public boolean isWeapon() {
 		return type == ItemType_Weapon;
 	}
-	public Item(String n, String t, int d){
-		name = n;
-		type = t;
-		durMax = d;
-		durCur = d;
+	public Item(String nam, String typ, int dur){
+		name = nam;
+		type = typ;
+		durMax = dur;
+		durCur = dur;
 	}
 	public boolean useItem() {
 		durCur = (hasUse()) ? durCur-1 : 0;

@@ -1,6 +1,6 @@
 package weapons;
 public class WeaponSword extends Weapon {
-	public WeaponSword(String n,int dur, int r, int dd, String wt) {
-		super(n, dur, r, dd, WeaponType_Sword);
+	public WeaponSword(String name, int dur, int rang,int hit, int crit, int damage) {
+		super(name, dur, rang, hit, crit, damage, WeaponType_Sword);
 	}
 }

@@ -15,17 +15,23 @@ public class Unit {
 	/** Maximum HP */
 	private int hpMax;
 	/** attack */
-	private int attack;
+	private int strength;
 	/** damage reduction */
 	private int defense;
 	/** amount of magic */
 	private int magic;
 	/** defense against magic attacks */
 	private int resist;
-	/** max amount of spaces a unit can move */
+	/** Determines avoid rate */
 	private int speed;
+	/** Determines crit rate and hit rate */
+	private int skill;
+	/** reduces enemy crit rate, and improves hit rate */
+	private int luck;
+	/** max amount of spaces a unit can move */
+	private int movement;
 	/** weapons that are usable at any time while equipped. index 0 is the used one  */
-	private Item [] items = new Item [6];
+	private Item [] items = new Item [5]; //nope, only 5 items including weapons
 	/** all items on unit */
 	/** item being held */
 	/** you can only have 5 weapons equipped, but others will be unusable for the time */
@@ -36,19 +42,65 @@ public class Unit {
 		defense = 4;
 		speed = 3;
 	} //I'd use an arraylist for items here, but...
-	public Unit(String n, Sprite sprite, int h, int hpm, int atk, int d, int mg, int r, int s, Item [] its) {
-		hp = h;
-		hpMax = hpm;
-		attack = atk;
-		magic = mg;
-		speed = s;
+	public Unit(String nam, Sprite sprite, int health, int healthmax, int str, int def, int mag, int res, int skl, int lck, int spd,int mov, Item [] its) {
+		name = nam;
+		hp = health;
+		hpMax = healthmax;
+		strength = str;
+		magic = mag;
+		speed = spd;
+		skill = skl;
+		luck = lck;
+		movement = mov;
+		speed = spd;
 		items = its;
+		spr = sprite;
 	}
+	
+	/** compiles the probababilities of a conflict between two units */
+	public void combatForecast(Unit other) {
+		int dmg = 0;
+		int atk = this.calculateAttack();
+		String type = ((Weapon)items[0]).getType();
+		if(type == Weapon.WeaponType_Magic){
+			dmg = atk-other.resist;
+		}
+		if(type == Weapon.WeaponType_Sword){
+			dmg = atk-other.defense;
+		}
+		int hit = this.hitRate() - other.avoidRate();
+		int critical = this.critRate() - other.luck;
+	}
+	
+	/** determines if unit will strike twice */
+	public boolean strikeTwice(Unit other){
+		if(this.speed - other.speed >= 5){
+			return true;
+			}
+			return false;
+	}
+	
 	/** calculate the attack using the magic/strength from this class */
 	public int calculateAttack() {
-		int a = (((Weapon)items[0]).getType() == Weapon.WeaponType_Magic) ? magic : attack;
+		int a = (((Weapon)items[0]).getType() == Weapon.WeaponType_Magic) ? magic : strength;
 		return a + ((Weapon)items[0]).getDealDamage();
 	}
+	
+	/** calculates hit rate */
+	public int hitRate() {
+		return ((Weapon)items[0]).getHitRate() + (skill*3 + luck)/2;
+	}
+	
+	/** calculates avoid rate */
+	public int avoidRate() {
+		return (speed*3 + luck)/2;
+	}
+	
+	/** calculates critical hit rate */
+	public int critRate() {
+		return ((Weapon)items[0]).getCritical() + (skill/2);
+	}
+	
 	/** Swap weapons in stack, or add it if not there. Return if it added one. */
 	public boolean changeWeapon(Weapon toWeap) {
 		boolean has = false;
@@ -63,17 +115,18 @@ public class Unit {
 		items[0] = allWeapons.get(index);
 		return has;
 	}
+	
 	/** swaps index A with B */
 	private void swapItems(int a, int b) {
 		Item t =  items[a];
 		items[a] = items[b];
 		items[b] = t;
 	}
-	public int getAttack() {
-		return attack;
+	public int getStrength() {
+		return strength;
 	}
 	/** performs an ACTION. does NOT get the value */
-	public int attack(){
+	public int attack(Unit other){
 		// make sure items[0] is a Weapon
 		if(!items[0].isWeapon()) {
 			for(int i = 1; i < items.length; i++) {
@@ -83,6 +136,14 @@ public class Unit {
 				}
 			}
 		}
+		String type = ((Weapon)items[0]).getType();
+		if(type == Weapon.WeaponType_Magic){
+			return calculateAttack()-other.getResist();
+		}
+		if(type == Weapon.WeaponType_Sword){
+			return calculateAttack()-other.getDefense();
+		}
+			return 0;
 	    return calculateAttack();
 	}
 	public void setHP(int h) {
@@ -97,15 +158,18 @@ public class Unit {
 	public int getSpeed() {
 		return speed;
 	}
-	/** hp, defense, speed */
-	public int[] getStats() {
-		int [] ret = {hp, defense, speed};
-		return ret;
-	}
+	
+//	/** hp, defense, speed */
+//	public int[] getStats() {
+//		int [] ret = {hp, defense, speed};
+//		return ret;
+//	}
+	
 	/** returns the Sprite's Image in the Unit */
 	public Image getSpriteImage() {
 		return spr.getImg();
 	}
+	
 	/** sets the Sprite in the Unit */
 	public void setSpriteImage(String sType) {
 		spr = new Sprite(sType);

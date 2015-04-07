@@ -13,11 +13,15 @@ public class Weapon extends Item {
 	private int range;
 	private int dealDamage;
 	private int attack;
-	public Weapon(String name, int dur, int r, int dd, String wt) {
+	private int hitRate;
+	private int criticalRate;
+	public Weapon(String name, int dur, int rang,int hit, int crit, int damage, String wt) {
 		super(name,wt,dur);
 		durability = dur;
-		range = r;
-		dealDamage = dd;
+		range = rang;
+		dealDamage = damage;
+		hitRate = hit;
+		criticalRate = crit;
 	}
 	public int getDurabilityMax() {
 		return durability;
@@ -25,6 +29,13 @@ public class Weapon extends Item {
 	public int getDurabilityCur() {
 		return durability;
 	}
+	public int getHitRate(){
+		return hitRate;
+	}
+	public int getCritical(){
+		return criticalRate;
+	}
+	
 	/** returns if still usable */ 
 	public boolean setDurability(int d) {
 		durability = d;
