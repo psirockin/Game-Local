@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import objects.Sprite;
 public class Weapon extends Item {
 	// define types
+	// I think it might be easier to categorize weapons through their damage types(i.e. physical or magic), but....
 	public static final String WeaponType_Sword = "Sword";
 	public static final String WeaponType_Magic = "Magic";
 	public static final String WeaponType_Axe = "Axe";
