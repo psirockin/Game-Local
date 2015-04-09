@@ -8,10 +8,7 @@ import objects.Sprite;
 import weapons.Weapon;
 import weapons.WeaponSword;
 public class UnitLord extends Unit {
-	public UnitLord() {
-		super(Unit., sprite, h, hpm, atk, d, mg, r, s, its);
-		super("Lord", null, 18, 18, 10, 47, 6, 1, 4);
-		Stack<Weapon> equippedWeps = new Stack<Weapon>();
-		initNonStats(null, new ItemHeal("Healer", 7), equippedWeps, new WeaponSword());
+	public UnitLord(String nam, Sprite sprite, int health, int str, int def, int mag, int res, int skl, int lck, int spd,int mov, Item [] its) {
+		super(nam, sprite, health, str, def, mag, res, skl, lck, spd, mov, its);
 	}
 }

@@ -1,10 +1,19 @@
 package units;
 import items.Item;
+
 import java.util.Stack;
+
 import objects.Sprite;
+
 import org.newdawn.slick.Image;
+
 import weapons.Weapon;
 import weapons.WeaponLance;
+import weapons.WeaponSword;
+import weapons.WeaponBow;
+import weapons.WeaponAxe;
+import weapons.WeaponTome;
+
 public class Unit {
 	private String name = "UNIT_NAME_NULL";
 	/** the image that goes along with it */
@@ -38,10 +47,35 @@ public class Unit {
 	private Stack<Weapon> allWeapons = new Stack<Weapon>();
 	/** Default case if none is specified */
 	public Unit() {
-		hp = 10;
-		defense = 4;
-		speed = 3;
+		hp = 1;
+		hpMax = 2;
+		strength = 50;
+		defense = 50;
+		magic = 50;
+		resist = 50;
+		speed = 50;
+		skill = 50;
+		luck = 50;
+		movement = 1;
+		items[0] = new WeaponSword();
+		items[1] = new WeaponLance();
 	} //I'd use an arraylist for items here, but...
+	
+	public Unit(String nam, Sprite sprite, int health, int str, int def, int mag, int res, int skl, int lck, int spd,int mov, Item [] its) {
+		name = nam;
+		hp = health;
+		hpMax = health;
+		strength = str;
+		magic = mag;
+		speed = spd;
+		skill = skl;
+		luck = lck;
+		movement = mov;
+		speed = spd;
+		items = its;
+		spr = sprite;
+	}
+	//Oh wait, we need a starting position on the map.
 	public Unit(String nam, Sprite sprite, int health, int healthmax, int str, int def, int mag, int res, int skl, int lck, int spd,int mov, Item [] its) {
 		name = nam;
 		hp = health;
@@ -57,6 +91,15 @@ public class Unit {
 		spr = sprite;
 	}
 	
+	public void addItem(Item a){
+		for(int c = 0; c < items.length; c++){
+			if(items[c] == null){
+				items[c] = a;
+				break;
+			}
+		}
+	}
+
 	/** compiles the probababilities of a conflict between two units */
 	public void combatForecast(Unit other) {
 		int dmg = 0;

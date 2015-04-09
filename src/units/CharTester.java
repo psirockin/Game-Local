@@ -3,8 +3,8 @@ import items.Item;
 import items.ItemHeal;
 public class CharTester {
 	public static void main(String[] args) {
-		Unit c = new Myrmidon("Edward", 4, 19, 0, null, 7, 0, 11, 12, 8, 5, 0);
-		Unit d = new Cavalier("Kieran", 12, 30, 0, null, 11, 1, 10, 12, 8, 10, 1);
+		Unit c = new UnitMyrmidon("Edward", 4, 19, 0, null, 7, 0, 11, 12, 8, 5, 0);
+		Unit d = new UnitCavalier("Kieran", 12, 30, 0, null, 11, 1, 10, 12, 8, 10, 1);
 		System.out.println(c.toString());
 		System.out.println("-------------");
 		System.out.println(d.toString());
