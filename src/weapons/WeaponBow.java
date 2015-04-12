@@ -6,5 +6,7 @@ public class WeaponBow extends Weapon{
 		super(name, dur, 2, hit, crit, damage, WeaponType_Bow); //But I can make a Longbow class when I have time.(3 range)
 		// TODO Auto-generated constructor stub
 	}
-
+	public WeaponBow(){
+		super("Murgleis",20,2,80,0,16,WeaponType_Bow);
+	}
 }

@@ -8,5 +8,7 @@ public class WeaponAxe extends Weapon {
 		super(name, dur, 1, hit, crit, damage, WeaponType_Axe);
 		// TODO Auto-generated constructor stub
 	}
-	
+	public WeaponAxe(){
+		super("Armads",20,1,75,0,18,WeaponType_Axe);
+	}
 }

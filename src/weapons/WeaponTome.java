@@ -4,4 +4,8 @@ public class WeaponTome extends Weapon {
 	public WeaponTome(String name, int dur, int rang,int hit, int crit, int damage) {
 		super(name, dur, 2, hit, crit, damage, WeaponType_Magic);
 	}
+	
+	public WeaponTome(){
+		super("Forblaze",20,2,85,5,14,WeaponType_Magic);
+	}
 }

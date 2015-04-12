@@ -1,6 +1,7 @@
 package units;
 import items.Item;
 
+import java.util.Random;
 import java.util.Stack;
 
 import objects.Sprite;
@@ -169,7 +170,9 @@ public class Unit {
 		return strength;
 	}
 	/** performs an ACTION. does NOT get the value */
-	public int attack(Unit other){
+	public void attack(Unit other){
+		int rawdamage;
+		boolean atk = false;
 		// make sure items[0] is a Weapon
 		if(!items[0].isWeapon()) {
 			for(int i = 1; i < items.length; i++) {
@@ -180,18 +183,33 @@ public class Unit {
 			}
 		}
 		String type = ((Weapon)items[0]).getType();
-		if(type == Weapon.WeaponType_Magic){
-			return calculateAttack()-other.getResist();
+		Random rng = new Random();
+		int hit = rng.nextInt(100);
+		rawdamage = calculateAttack();
+		if(hit + 1 <= hitRate()){
+			atk = true;
 		}
-		if(type == Weapon.WeaponType_Sword){
-			return calculateAttack()-other.getDefense();
+		if(hit + 1 <= critRate()){
+			rawdamage *= 3;
 		}
-			return 0;
-	    return calculateAttack();
+		if(atk == true){
+			if(type == Weapon.WeaponType_Magic){
+				other.modifyHP(rawdamage-other.getResist());
+				return;
+			}
+			if(type == Weapon.WeaponType_Sword){
+				other.modifyHP(rawdamage-other.getDefense());
+				return;
+				}
+		}
+		//If you can reach here, it means that you missed.
 	}
-	public void setHP(int h) {
-		hp = h;
+	
+	//This method has many uses, including battle, healing, etc.
+	public void modifyHP(int amount) {
+		hp += amount;
 	}
+	
 	public int getHP() {
 		return hp;
 	}
@@ -201,12 +219,6 @@ public class Unit {
 	public int getSpeed() {
 		return speed;
 	}
-	
-//	/** hp, defense, speed */
-//	public int[] getStats() {
-//		int [] ret = {hp, defense, speed};
-//		return ret;
-//	}
 	
 	/** returns the Sprite's Image in the Unit */
 	public Image getSpriteImage() {
