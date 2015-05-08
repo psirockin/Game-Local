@@ -1,26 +1,28 @@
 package weapons;
+import items.Item;
 import org.newdawn.slick.Image;
-
 import objects.Sprite;
-import objects.SpriteProperties;
-public class Weapon implements SpriteProperties {
+public class Weapon extends Item {
 	// define types
+	// I think it might be easier to categorize weapons through their damage types(i.e. physical or magic), but....
 	public static final String WeaponType_Sword = "Sword";
-	private Sprite spr;
+	public static final String WeaponType_Magic = "Magic";
+	public static final String WeaponType_Axe = "Axe";
+	public static final String WeaponType_Bow = "Bow";
+	public static final String WeaponType_Lance = "Lance";
 	private int durability;
 	private int range;
 	private int dealDamage;
-	private String type = "NULL_TYPE";
-	public Weapon() {
-		durability = 10;
-		range = 1;
-		dealDamage = 3;
-	}
-	public Weapon(int dur, int rng, int deal, String t) {
-	    durability = dur;
-	    range = rng;
-	    dealDamage = deal;
-	    type = t;
+	private int attack;
+	private int hitRate;
+	private int criticalRate;
+	public Weapon(String name, int dur, int rang,int hit, int crit, int damage, String wt) {
+		super(name,wt,dur);
+		durability = dur;
+		range = rang;
+		dealDamage = damage;
+		hitRate = hit;
+		criticalRate = crit;
 	}
 	public int getDurabilityMax() {
 		return durability;
@@ -28,14 +30,22 @@ public class Weapon implements SpriteProperties {
 	public int getDurabilityCur() {
 		return durability;
 	}
-	/** returns if still usable */
+	public int getHitRate(){
+		return hitRate;
+	}
+	public int getCritical(){
+		return criticalRate;
+	}
+	
+	/** returns if still usable */ 
 	public boolean setDurability(int d) {
 		durability = d;
 		return durability > 0;
 	}
 	public String getType() {
-		return type;
+		return getType();
 	}
+	/** returns dealDamage, not the calculated kind */
 	public int getDealDamage() {
 		return dealDamage;
 	}
@@ -46,15 +56,7 @@ public class Weapon implements SpriteProperties {
 	public boolean equals(Object obj) {
 		Weapon nWeap = (Weapon)obj;
 		return durability == nWeap.getDurabilityCur() &&
-				type == nWeap.getType() &&
+				getType() == nWeap.getType() &&
 				range == nWeap.getRange();
-	}
-	@Override
-	public Image getSpriteImage() {
-		return spr.getImg();
-	}
-	@Override
-	public void setSpriteImage(String sType) {
-		spr = new Sprite(sType);
 	}
 }

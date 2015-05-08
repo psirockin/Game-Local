@@ -1,8 +1,14 @@
 package units;
-import weapons.Weapon;
+import items.Item;
+import items.ItemHeal;
 
+import java.util.Stack;
+
+import objects.Sprite;
+import weapons.Weapon;
+import weapons.WeaponSword;
 public class UnitLord extends Unit {
-    public UnitLord(String n, int h, int atk, int mg, int spd, Weapon w) {
-    	super(n, h, atk, mg, spd, w);
-    }
+	public UnitLord(String nam, Sprite sprite, int health, int str, int def, int mag, int res, int skl, int lck, int spd,int mov, Item [] its) {
+		super(nam, sprite, health, str, def, mag, res, skl, lck, spd, mov, its);
+	}
 }
